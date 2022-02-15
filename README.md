@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Phishjams Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This serves as a React project for the Phishjams project.
 
 ## Available Scripts
 
