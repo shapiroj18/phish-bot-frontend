@@ -14,7 +14,7 @@ class Player extends React.Component<PlayerProps> {
     // }
 
     componentDidMount() {
-        fetch("http://phishjams-dev.herokuapp.com/get_song_info")
+        fetch("https://phishjams-dev.herokuapp.com/get_song_info")
         .then(response => response.json())
         .then((object) => {
             console.log(object)
