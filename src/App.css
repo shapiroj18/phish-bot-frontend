@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+}
+
+@font-face {
+  font-family: "dot_matrix";
+  src: url("fonts/dot_matrix.ttf") format("truetype");
+}
+
+.Phishjams-title {
+  text-align: center;
+  font-family:"dot_matrix", Arial, Helvetica, sans-serif;
+  font-style: italic;
+}
