@@ -9,5 +9,6 @@
 
 .Phishjams-title {
   text-align: center;
-  font-family:"dot_matrix", Arial, Helvetica, sans-serif
+  font-family:"dot_matrix", Arial, Helvetica, sans-serif;
+  font-style: italic;
 }

@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="Phishjams-main">
       <header className="App-header">
-        <h1 className="Phishjams-title">Jonathan Shapiro's PH!SH Page</h1>
+        <h1 className="Phishjams-title">Phishjams Garden</h1>
       </header>
     </div>
   );
