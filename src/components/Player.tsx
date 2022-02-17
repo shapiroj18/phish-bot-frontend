@@ -1,17 +1,35 @@
 import React from 'react';
 import './Player.css';
 
+
 interface PlayerProps {
     // musicInfo: any[];
 }
 
-class Player extends React.Component<PlayerProps> {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         data: null
-    //     };
-    // }
+class Player extends React.Component<PlayerProps, {songsData: any[]|null}> {
+
+    constructor(props: PlayerProps) {
+        super(props);
+        this.state = {
+            songsData: [
+                {
+                    "name": "Twist", 
+                    "artist": "Phish", 
+                    "url": "http://phish.in/audio/000/020/578/20578.mp3", 
+                    "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg", 
+                    "date": "2000-06-14"
+                }, 
+                {
+                    "name": "Jam", 
+                    "artist": "Phish", 
+                    "url": "http://phish.in/audio/000/020/579/20579.mp3", 
+                    "cover_art_url": 
+                    "static/img/livephish_logos/2000-06-14.jpg", 
+                    "date": "2000-06-14"
+                }
+            ]
+        };
+    }
 
     componentDidMount() {
         fetch(`${process.env.REACT_APP_HOST_URL}/get_song_info`)
@@ -19,14 +37,19 @@ class Player extends React.Component<PlayerProps> {
         .then((object) => {
             console.log(object)
             this.setState({
-                data: object
+                songsData: JSON.parse(object)
             });
         })
     }
 
     render() {
-        // const { data } = this.props;
-      return <p>test_text</p>;
+      return <div>
+          { 
+          this.state.songsData?.map(song => 
+              <p key={song.url}>{song.name}</p>
+          )
+      }
+      </div>;
     }
   }
 
