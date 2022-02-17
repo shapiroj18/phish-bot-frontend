@@ -6,7 +6,7 @@ interface PlayerProps {
     // musicInfo: any[];
 }
 
-class Player extends React.Component<PlayerProps, {songsData: any[]|null}> {
+class Player extends React.Component<PlayerProps, {songsData: any[]|null, songURL: HTMLAudioElement}> {
 
     constructor(props: PlayerProps) {
         super(props);
@@ -27,8 +27,14 @@ class Player extends React.Component<PlayerProps, {songsData: any[]|null}> {
                     "static/img/livephish_logos/2000-06-14.jpg", 
                     "date": "2000-06-14"
                 }
-            ]
+            ],
+            songURL: new Audio("http://phish.in/audio/000/020/579/20579.mp3")
         };
+    }
+
+    playSong(audioTune: HTMLAudioElement) {
+        console.log('made it')
+        audioTune.play();
     }
 
     componentDidMount() {
@@ -40,6 +46,11 @@ class Player extends React.Component<PlayerProps, {songsData: any[]|null}> {
                 songsData: JSON.parse(object)
             });
         })
+
+        const audioTune: HTMLAudioElement = new Audio("http://phish.in/audio/000/020/579/20579.mp3")
+        this.setState({
+            songURL: audioTune
+        })
     }
 
     render() {
@@ -49,6 +60,7 @@ class Player extends React.Component<PlayerProps, {songsData: any[]|null}> {
               <p key={song.url}>{song.name}</p>
           )
       }
+      <button onClick={() => this.playSong(this.state.songURL)}>button</button>
       </div>;
     }
   }
