@@ -1,12 +1,17 @@
 import React from 'react';
 import './Player.css';
+var base64 = require('base-64');
 
 
 interface PlayerProps {
     // musicInfo: any[];
 }
 
-class Player extends React.Component<PlayerProps, { songsData: any[] | null}> {
+interface PlayerState {
+    songsData: any[] | null;
+}
+
+class Player extends React.Component<PlayerProps,PlayerState> {
 
     constructor(props: PlayerProps) {
         super(props);
@@ -23,8 +28,7 @@ class Player extends React.Component<PlayerProps, { songsData: any[] | null}> {
                     "name": "Jam",
                     "artist": "Phish",
                     "url": "http://phish.in/audio/000/020/579/20579.mp3",
-                    "cover_art_url":
-                        "static/img/livephish_logos/2000-06-14.jpg",
+                    "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
                     "date": "2000-06-14"
                 }
             ]
@@ -35,11 +39,36 @@ class Player extends React.Component<PlayerProps, { songsData: any[] | null}> {
         audioTune.play();
     }
 
+    getSongCoverArt(date: String) {
+        const urlCoverArt = 'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'
+        const authentication = `${process.env.REACT_APP_BACKBLAZE_keyID}:${process.env.REACT_APP_BACKBLAZE_applicationKey}`
+        let headers = new Headers({
+            'Authorization': 'Basic ' + base64.encode(authentication),
+            'Content-Type': 'application/json',
+            // 'Access-Control-Allow-Origin':'*',
+            'Origin': '*'
+        })
+        // console.log(headers)
+        // headers.set('Authorization', 'Basic ' + base64.encode(authentication))
+        // console.log(headers.get('Authorization'))
+
+
+        fetch(urlCoverArt, {method:'GET',
+            headers: headers,
+            mode: 'cors',
+            // credentials: 'include'
+            })
+            .then(response => console.log(response))
+            .then(object => console.log(object));
+        
+            return 42;
+    }
+
     componentDidMount() {
         fetch(`${process.env.REACT_APP_HOST_URL}/get_song_info`)
             .then(response => response.json())
             .then((object) => {
-                console.log(object)
+                // console.log(object)
                 this.setState({
                     songsData: JSON.parse(object)
                 });
@@ -57,6 +86,9 @@ class Player extends React.Component<PlayerProps, { songsData: any[] | null}> {
                     </p>
                 )
             }
+            <div>
+                { this.getSongCoverArt('2009-09-09') }
+            </div>
         </div>;
     }
 }
