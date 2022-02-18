@@ -1,5 +1,7 @@
 import React from 'react';
+import { NullLiteral } from 'typescript';
 import './Player.css';
+import defaultAlbumArt from '../img/default.jpg';
 var base64 = require('base-64');
 
 
@@ -9,6 +11,7 @@ interface PlayerProps {
 
 interface PlayerState {
     songsData: any[] | null;
+    albumCover: string;
 }
 
 class Player extends React.Component<PlayerProps,PlayerState> {
@@ -31,37 +34,13 @@ class Player extends React.Component<PlayerProps,PlayerState> {
                     "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
                     "date": "2000-06-14"
                 }
-            ]
+            ],
+            albumCover: defaultAlbumArt
         };
     }
 
     playSong(audioTune: HTMLAudioElement) {
         audioTune.play();
-    }
-
-    getSongCoverArt(date: String) {
-        const urlCoverArt = 'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'
-        const authentication = `${process.env.REACT_APP_BACKBLAZE_keyID}:${process.env.REACT_APP_BACKBLAZE_applicationKey}`
-        let headers = new Headers({
-            'Authorization': 'Basic ' + base64.encode(authentication),
-            'Content-Type': 'application/json',
-            // 'Access-Control-Allow-Origin':'*',
-            'Origin': '*'
-        })
-        // console.log(headers)
-        // headers.set('Authorization', 'Basic ' + base64.encode(authentication))
-        // console.log(headers.get('Authorization'))
-
-
-        fetch(urlCoverArt, {method:'GET',
-            headers: headers,
-            mode: 'cors',
-            // credentials: 'include'
-            })
-            .then(response => console.log(response))
-            .then(object => console.log(object));
-        
-            return 42;
     }
 
     componentDidMount() {
@@ -73,6 +52,19 @@ class Player extends React.Component<PlayerProps,PlayerState> {
                     songsData: JSON.parse(object)
                 });
             })
+
+        
+        fetch(`${process.env.REACT_APP_HOST_URL}/get_album_art`)
+            .then(response => response.blob())
+            .then((imageBlob) => {
+                // console.log(imageBlob)
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+                console.log(imageObjectURL)
+                this.setState({
+                    albumCover: imageObjectURL
+                });
+            })
+
     }
 
     render() {
@@ -80,15 +72,13 @@ class Player extends React.Component<PlayerProps,PlayerState> {
             {
                 this.state.songsData?.map(song =>
                     <p key={song.url}>
+                        { <img src={this.state.albumCover} alt="Logo" /> }
                         {song.name} {song.date} {"\n"}
                         <br/>
                         <button onClick={() => this.playSong(new Audio(song.url))}>Play</button>
                     </p>
                 )
             }
-            <div>
-                { this.getSongCoverArt('2009-09-09') }
-            </div>
         </div>;
     }
 }
