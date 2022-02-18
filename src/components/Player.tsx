@@ -52,8 +52,8 @@ class Player extends React.Component<PlayerProps,PlayerState> {
                 });
             })
 
-        
-        fetch(`${process.env.REACT_APP_HOST_URL}/get_album_art`)
+        const songDate = '1997-02-17'
+        fetch(`${process.env.REACT_APP_HOST_URL}/get_album_art?song_date=${songDate}`)
             .then(response => response.blob())
             .then((imageBlob) => {
                 const imageObjectURL = URL.createObjectURL(imageBlob);
@@ -69,7 +69,7 @@ class Player extends React.Component<PlayerProps,PlayerState> {
             {
                 this.state.songsData?.map(song =>
                     <p key={song.url}>
-                        { <img src={this.state.albumCover} alt="Logo" /> }
+                        { <img src={this.state.albumCover} alt="album art" /> }
                         {song.name} {song.date} {"\n"}
                         <br/>
                         <button onClick={() => this.playSong(new Audio(song.url))}>Play</button>
