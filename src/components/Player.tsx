@@ -47,7 +47,6 @@ class Player extends React.Component<PlayerProps,PlayerState> {
         fetch(`${process.env.REACT_APP_HOST_URL}/get_song_info`)
             .then(response => response.json())
             .then((object) => {
-                // console.log(object)
                 this.setState({
                     songsData: JSON.parse(object)
                 });
@@ -57,9 +56,7 @@ class Player extends React.Component<PlayerProps,PlayerState> {
         fetch(`${process.env.REACT_APP_HOST_URL}/get_album_art`)
             .then(response => response.blob())
             .then((imageBlob) => {
-                // console.log(imageBlob)
                 const imageObjectURL = URL.createObjectURL(imageBlob);
-                console.log(imageObjectURL)
                 this.setState({
                     albumCover: imageObjectURL
                 });
