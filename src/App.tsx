@@ -1,11 +1,12 @@
 import React from 'react';
-import './App.css';
+import { Player } from './components/Player'
 
 function App() {
   return (
-    <div className="Phishjams-main">
-      <header className="App-header">
-        <h1 className="Phishjams-title">Phishjams Garden</h1>
+    <div>
+      <header>
+        <h1 className="text-center font-sans text-2xl">Phishjams Garden</h1>
+        <Player />
       </header>
     </div>
   );
