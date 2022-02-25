@@ -81,14 +81,21 @@ export function Player() {
             setcurrentSongName(queue[0].name)
             setcurrentSongDate(queue[0].date)
             setcurrentSongURL(queue[0].url)
-            getAlbumCover(currentSongDate)
         }
+    }
+
+    function updateAlbumCover (): void {
+        getAlbumCover(currentSongDate)
     }
 
     useEffect(() => {
         // no arguments passed to second function essentially says that useEffect won't be called after initialization, since no variables to watch
         getQueueItems()
     }, [])
+
+    useEffect(() => {
+        updateAlbumCover()
+    }, [currentSongDate])
 
 
     return (
