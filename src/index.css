@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Butler";
+    src: url("../public/fonts/Butler_and_ButlerStencil/Butler/Butler_Regular.otf")
+}

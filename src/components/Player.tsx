@@ -27,6 +27,8 @@ export function Player() {
     const [albumCover, setAlbumCover] = useState<string>(defaultAlbumArt);
     const [queue, setQueue] = useState<any[]>(defaultQueue);
 
+    let currentSong = new Audio(currentSongURL)
+
     function getAlbumCover (songDate: string | null): void {
         try {
             fetch(`${process.env.REACT_APP_HOST_URL}/get_album_art?song_date=${songDate}`)
@@ -75,6 +77,11 @@ export function Player() {
                 audioTune.play();
             }
 
+    function pauseSong(audioTune: HTMLAudioElement) {
+                updateCurrentSong()
+                audioTune.pause();
+            }
+
     function updateCurrentSong (): void {
 
         if (queue) {
@@ -103,12 +110,14 @@ export function Player() {
 
     return (
         <div>
-            <div className="grid grid-flow-row auto-rows-max justify-center">
-                <div> 
+            <div className="">
+                <div className="ml-2.5"> 
                     <AlbumArt albumCover={albumCover}/>
                 </div>
-                <div className="border-2 grid justify-center">
-                    {currentSongName} {currentSongDate} <button onClick={() => playSong(new Audio(currentSongURL))}>Play</button>
+                <div className="justify-center">
+                    {currentSongName} {currentSongDate} 
+                    <button className="" onClick={() => playSong(currentSong)}>Play</button>
+                    <button className="" onClick={() => pauseSong(currentSong)}>Pause</button>
                 </div>
             </div>
         <Queue queue={queue}/>

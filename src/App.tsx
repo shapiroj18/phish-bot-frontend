@@ -3,9 +3,9 @@ import { Player } from './components/Player'
 
 function App() {
   return (
-    <div>
+    <div className="bg-medium-dark-magenta h-screen">
       <header>
-        <h1 className="text-center font-sans text-2xl">Phishjams Garden</h1>
+        <h1 className="text-center font-sans text-2xl font-butler">Phishjams Garden</h1>
         <Player />
       </header>
     </div>
