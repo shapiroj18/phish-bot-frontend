@@ -89,13 +89,16 @@ export function Player() {
     }
 
     useEffect(() => {
-        // no arguments passed to second function essentially says that useEffect won't be called after initialization, since no variables to watch
         getQueueItems()
     }, [])
 
     useEffect(() => {
         updateAlbumCover()
     }, [currentSongDate])
+
+    useEffect(() => {
+        updateCurrentSong()
+    }, [queue])
 
 
     return (
