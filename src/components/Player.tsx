@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Queue } from './Queue'
 import { AlbumArt } from './AlbumArt'
+import { Circle } from './Circle'
 import defaultAlbumArt from '../img/default.jpg';
 
 
@@ -114,10 +115,13 @@ export function Player() {
                 <div className="ml-2.5"> 
                     <AlbumArt albumCover={albumCover}/>
                 </div>
-                <div className="justify-center">
+                <div className="">
                     {currentSongName} {currentSongDate} 
                     <button className="" onClick={() => playSong(currentSong)}>Play</button>
                     <button className="" onClick={() => pauseSong(currentSong)}>Pause</button>
+                </div>
+                <div>
+                    <Circle size={2.3}/>
                 </div>
             </div>
         <Queue queue={queue}/>
