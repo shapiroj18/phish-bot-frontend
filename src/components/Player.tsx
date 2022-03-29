@@ -4,7 +4,6 @@ import { AlbumArt } from './AlbumArt'
 import { Circle } from './Circle'
 import defaultAlbumArt from '../img/default.jpg';
 
-
 const defaultQueue = [
         {
             "name": "Twist",
