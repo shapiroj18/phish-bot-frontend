@@ -8,17 +8,17 @@ module.exports = {
     extend: {},
     colors: {
       // descriptions by https://encycolorpedia.com
-      // color scheme: https://aco-viewer.appspot.com/5b59b6e3ded3f7dc6418356bfd6c275a
-      'medium-dark-magenta': '#654c60',
-      'medium-light-green-cyan': '#93a198',
-      'very-light-orange': '#eddcd1',
-      'medium-light-orange': '#f58962',
-      'very-light-brown': '#f9f6f3',
-      'medium-light-cyan': '#97cec7',
-      'medium-light-brown': '#fbc780'
+      // colors from https://imagecolorpicker.com/en
+      'magenta': '#765c71',
+      'medium-dark-magenta': '#4d3649',
+      'medium-light-red-orange': '#f98660',
+      'medium-light-brown': '#ffc156',
+      'light-brown': '#fee3b8',
+      'off-white': '#fffeff',
     },
     fontFamily: {
-      butler: ["Butler"]
+      butler: ["Butler"],
+      butler_bold: ["Butler-Bold"]
     }
   },
   plugins: [],

@@ -7,6 +7,11 @@
     src: url("../public/fonts/Butler_and_ButlerStencil/Butler/Butler_Regular.otf")
 }
 
+@font-face {
+  font-family: "Butler-Bold";
+  src: url("../public/fonts/Butler_and_ButlerStencil/Butler/Butler_Bold.otf")
+}
+
 @layer base {
     html {
       font-family: butler;
