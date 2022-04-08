@@ -113,20 +113,22 @@ export function Player() {
             <div>
                 {/* w-1/5 h-2/5 */}
                 <div className={`relative w-${albumArtSize} h-${albumArtSize} ml-56`}>
-                    <div className="z-30 absolute inset-0"> 
+                    <div className="z-30 absolute bottom-0 left-0"> 
                         <AlbumArt albumCover={albumCover}/>
                     </div>
-                    {/* <div className="z-20 absolute -top-14 -right-14">
-                        <div className={`w-28 h-28 border border-light-brown rounded-full`}></div>
-                    </div> */}
-                    <div className="z-20 absolute -top-14 -right-14">
-                        <div className={`w-28 h-28 border border-magenta rounded-full`}></div>
+                    <div className="z-20 absolute -top-4 left-6 grid gap-2 grid-cols-10">
+                        { 
+                            [...Array(40)].map((e, i) => <div className={`w-0.5 h-0.5 bg-magenta rounded-full`}></div>)
+                        }
                     </div>
-                    <div className="z-10 absolute -bottom-16 -left-16">
+                     <div className="z-20 absolute -top-10 -right-10">
+                        <div className={`w-24 h-24 border border-magenta rounded-full`}></div>
+                    </div>
+                    <div className="z-10 absolute -bottom-12 -left-12">
                         <div className={`w-60 h-60 bg-medium-light-red-orange rounded-full`}></div>
                     </div>
-                    <div className="z-20 absolute -bottom-20 -left-20">
-                        <div className={`w-28 h-28 bg-medium-light-brown rounded-full`}></div>
+                    <div className="z-20 absolute -bottom-16 -left-16">
+                        <div className={`w-24 h-24 bg-medium-light-brown rounded-full`}></div>
                     </div>
                 </div>
                 <div className="">
