@@ -3,7 +3,7 @@ import React from 'react'
 export function AlbumArt({albumCover}: {albumCover: string}) { 
     return (
         <div className="">
-            <img className="w-auto max-w-sm" src={ albumCover } alt="album art" />
+            <img className="h-auto w-1/5" src={ albumCover } alt="album art" />
         </div>
     );
    }

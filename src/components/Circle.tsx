@@ -1,8 +1,8 @@
 import React from 'react'
 
-export function Circle({size}: {size: number}) { 
+export function Circle({size, color}: {size: number, color: string}) { 
     return (
-        <div className="w-10 h-10 bg-medium-light-red-orange rounded-full">
+        <div className={`w-${size} h-${size} ${color} rounded-full`}>
         </div>
     );
    }

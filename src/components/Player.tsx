@@ -120,7 +120,7 @@ export function Player() {
                     <button className="" onClick={() => pauseSong(currentSong)}>Pause</button>
                 </div>
                 <div>
-                    <Circle size={2.3}/>
+                    <Circle size={12} color={'bg-medium-light-red-orange'}/>
                 </div>
             </div>
         <Queue queue={queue}/>
