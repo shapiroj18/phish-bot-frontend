@@ -110,9 +110,10 @@ export function Player() {
 
     return (
         <div>
-            <div>
-                {/* w-1/5 h-2/5 */}
-                <div className={`relative w-${albumArtSize} h-${albumArtSize} ml-56`}>
+            <div className="grid grid-cols-12">
+                {/* w-1/5 h-2/5 ml-56*/}
+                <div className="col-start-0 col-span-2"></div>
+                <div className={`relative w-${albumArtSize} h-${albumArtSize} col-start-3`}>
                     <div className="z-30 absolute bottom-0 left-0"> 
                         <AlbumArt albumCover={albumCover}/>
                     </div>
@@ -131,13 +132,20 @@ export function Player() {
                         <div className={`w-24 h-24 bg-medium-light-brown rounded-full`}></div>
                     </div>
                 </div>
-                <div className="">
-                    {currentSongName} {currentSongDate} 
+                <div className="col-start-5 col-span-9">
+                    <div className="pt-10">
+                        <div className="text-3xl">
+                        {currentSongName}
+                        </div>
+                        <div className="text-lg text-magenta">
+                        {currentSongDate}
+                        </div>
+                    </div>
                     <button className="" onClick={() => playSong(currentSong)}>Play</button>
                     <button className="" onClick={() => pauseSong(currentSong)}>Pause</button>
                 </div>
             </div>
-        <Queue queue={queue}/>
+        {/* <Queue queue={queue}/> */}
         </div>
     );
    }
