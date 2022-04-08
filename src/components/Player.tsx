@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Queue } from './Queue'
 import { AlbumArt } from './AlbumArt'
-import { Circle } from './Circle'
 import defaultAlbumArt from '../img/default.jpg';
 
 const defaultQueue = [
@@ -26,6 +25,7 @@ export function Player() {
     const [currentSongURL, setcurrentSongURL] = useState<string>(defaultQueue[0].url);
     const [albumCover, setAlbumCover] = useState<string>(defaultAlbumArt);
     const [queue, setQueue] = useState<any[]>(defaultQueue);
+    const [albumArtSize, setAlbumArtSize] = useState<number>(60)
 
     let currentSong = new Audio(currentSongURL)
 
@@ -110,17 +110,29 @@ export function Player() {
 
     return (
         <div>
-            <div className="">
-                <div className="ml-2.5"> 
-                    <AlbumArt albumCover={albumCover}/>
+            <div>
+                {/* w-1/5 h-2/5 */}
+                <div className={`relative w-${albumArtSize} h-${albumArtSize} ml-56`}>
+                    <div className="z-30 absolute inset-0"> 
+                        <AlbumArt albumCover={albumCover}/>
+                    </div>
+                    {/* <div className="z-20 absolute -top-14 -right-14">
+                        <div className={`w-28 h-28 border border-light-brown rounded-full`}></div>
+                    </div> */}
+                    <div className="z-20 absolute -top-14 -right-14">
+                        <div className={`w-28 h-28 border border-magenta rounded-full`}></div>
+                    </div>
+                    <div className="z-10 absolute -bottom-16 -left-16">
+                        <div className={`w-60 h-60 bg-medium-light-red-orange rounded-full`}></div>
+                    </div>
+                    <div className="z-20 absolute -bottom-20 -left-20">
+                        <div className={`w-28 h-28 bg-medium-light-brown rounded-full`}></div>
+                    </div>
                 </div>
                 <div className="">
                     {currentSongName} {currentSongDate} 
                     <button className="" onClick={() => playSong(currentSong)}>Play</button>
                     <button className="" onClick={() => pauseSong(currentSong)}>Pause</button>
-                </div>
-                <div>
-                    <Circle size={12} color={'bg-medium-light-red-orange'}/>
                 </div>
             </div>
         <Queue queue={queue}/>
