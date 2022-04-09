@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Queue } from './Queue'
 import { AlbumArt } from './AlbumArt'
+import { Waveform } from './Waveform';
 import defaultAlbumArt from '../img/albumart/default.jpg';
 import playButton from '../img/icons/music/play.svg'
 import pauseButton from '../img/icons/music/pause.svg'
+
+import WaveSurfer from 'wavesurfer.js';
 
 const defaultQueue = [
         {
@@ -108,7 +111,6 @@ export function Player() {
         updateCurrentSong()
     }, [queue])
 
-
     return (
         <div>
             <div className="grid grid-cols-12">
@@ -132,7 +134,7 @@ export function Player() {
                     <div className="z-20 absolute -bottom-16 -left-16">
                         <div className={`w-24 h-24 bg-medium-light-brown rounded-full`}></div>
                     </div>
-                    <div className="col-start-5 col-span-9 absolute -right-36">
+                    <div className="absolute -right-36">
                         <div className="pt-10">
                             <div className="text-3xl">
                             {currentSongName}
@@ -141,7 +143,7 @@ export function Player() {
                             {currentSongDate}
                             </div>
                             <div className="h-14"></div>
-                            <div>
+                            <div className="">
                             { songState === 'pause' &&
                                 <input type="image" className="h-14" onClick={() => setSongState('play')} src={playButton}></input>
                             }   
@@ -149,8 +151,10 @@ export function Player() {
                                 <input type="image" className="h-14" onClick={() => setSongState('pause')} src={pauseButton}></input>
                             }   
                             </div>
-
                         </div>
+                    </div>
+                    <div className="w-80 absolute -bottom-6 -right-[500px] border">
+                        <Waveform audio={'http://phish.in/audio/000/020/578/20578.mp3'}/>
                     </div>
                 </div>
             </div>
