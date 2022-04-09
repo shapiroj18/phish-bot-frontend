@@ -152,8 +152,6 @@ export function Player() {
 
                         </div>
                     </div>
-                    {/* <button className="" onClick={() => playSong(currentSong)}>Play</button>
-                    <button className="" onClick={() => pauseSong(currentSong)}>Pause</button> */}
                 </div>
             </div>
         <Queue queue={queue}/>

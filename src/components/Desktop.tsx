@@ -7,12 +7,10 @@ export function Desktop() {
         <div className="bg-magenta h-screen flex justify-center items-center justify-items-stretch">
             <div className="bg-medium-dark-magenta w-11/12 h-4/6 rounded text-off-white">
                 <div className="">
-                    <div className="">
-                        <Navigation />
-                    </div>
-                    <div className="">
-                        <Player />
-                    </div>
+                    <Navigation />
+                </div>
+                <div className="">
+                    <Player />
                 </div>
             </div>
         </div>
