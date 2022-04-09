@@ -1,37 +1,57 @@
 import React, { useState, useEffect, useRef } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
+import playButton from '../img/icons/music/play.svg'
+import pauseButton from '../img/icons/music/pause.svg'
+
 const formWaveSurverOptions = (ref: any) => ({
     container: ref,
-    waveColor: "#fee3b8",
+    waveColor: "#765c71",
     progressColor: "#fee3b8",
-    cursorColor: "#fee3b8",
-    barWidth: 3,
-    barRadius: 3,
+    cursorWidth: 0,
+    barWidth: 2,
+    // barRadius: 20,
     responsive: true,
-    height: 150,
     normalize: true,
-    partialRender: true
 })
 
 export function Waveform({audio}: {audio: string}) {
 
     const waveformRef = useRef(null);
-    const waveSurfer = useRef<WaveSurfer|null>(null);
+    const waveSurferRef = useRef<WaveSurfer|null>(null);
+    const [songPlayState, setSongPlayState] = useState<boolean>(false);
+
 
     useEffect(() => {
 
         const options = formWaveSurverOptions(waveformRef.current);
-        const wavesurfer = waveSurfer.current = WaveSurfer.create(options);
-        waveSurfer.current.load(audio)
-        waveSurfer.current.on('ready', () => {
-            waveSurfer.current = wavesurfer;
+        const wavesurfer = waveSurferRef.current = WaveSurfer.create(options);
+        wavesurfer.load(audio)
+        wavesurfer.on('ready', () => {
+            waveSurferRef.current = wavesurfer;
         })
 
-        return () => waveSurfer.current?.destroy()
+        return () => waveSurferRef.current?.destroy()
     }, [audio]);
 
     return (
-        <div ref={waveformRef}></div>
+        <div className="grid grid-cols-2">
+            <div className="">
+                <button onClick={() => {
+                    waveSurferRef.current?.playPause()
+                
+                    console.log(waveSurferRef.current)
+                    setSongPlayState(!songPlayState)
+                    }} type="button">
+                    { songPlayState === false &&
+                        <img className="h-14" src={playButton}></img>
+                    }   
+                    { songPlayState === true &&
+                        <img className="h-14" src={pauseButton}></img>
+                    }     
+                </button>
+            </div>
+            <div ref={waveformRef}></div>
+        </div>
     );
    }

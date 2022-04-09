@@ -3,10 +3,6 @@ import { Queue } from './Queue'
 import { AlbumArt } from './AlbumArt'
 import { Waveform } from './Waveform';
 import defaultAlbumArt from '../img/albumart/default.jpg';
-import playButton from '../img/icons/music/play.svg'
-import pauseButton from '../img/icons/music/pause.svg'
-
-import WaveSurfer from 'wavesurfer.js';
 
 const defaultQueue = [
         {
@@ -32,8 +28,6 @@ export function Player() {
     const [queue, setQueue] = useState<any[]>(defaultQueue);
     const [songState, setSongState] = useState<string>('pause');
     const [albumArtSize, setAlbumArtSize] = useState<number>(60)
-
-    let currentSong = useRef(new Audio(currentSongURL))
 
     function getAlbumCover (songDate: string | null): void {
         try {
@@ -96,14 +90,6 @@ export function Player() {
     }, [])
 
     useEffect(() => {
-        if (songState === 'play' && currentSong.current.paused) {
-            currentSong.current.play();
-        } else if (songState === 'pause') {
-            currentSong.current.pause();
-        }
-    }, [songState])
-
-    useEffect(() => {
         updateAlbumCover()
     }, [currentSongDate])
 
@@ -143,18 +129,10 @@ export function Player() {
                             {currentSongDate}
                             </div>
                             <div className="h-14"></div>
-                            <div className="">
-                            { songState === 'pause' &&
-                                <input type="image" className="h-14" onClick={() => setSongState('play')} src={playButton}></input>
-                            }   
-                            { songState === 'play' &&
-                                <input type="image" className="h-14" onClick={() => setSongState('pause')} src={pauseButton}></input>
-                            }   
+                            <div className="w-80 absolute">
+                                <Waveform audio={currentSongURL}/>
                             </div>
                         </div>
-                    </div>
-                    <div className="w-80 absolute -bottom-6 -right-[500px] border">
-                        <Waveform audio={'http://phish.in/audio/000/020/578/20578.mp3'}/>
                     </div>
                 </div>
             </div>
