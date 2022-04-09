@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Queue } from './Queue'
 import { AlbumArt } from './AlbumArt'
-import defaultAlbumArt from '../img/default.jpg';
+import defaultAlbumArt from '../img/albumart/default.jpg';
+import playButton from '../img/icons/music/play.svg'
+import pauseButton from '../img/icons/music/pause.svg'
 
 const defaultQueue = [
         {
@@ -25,9 +27,10 @@ export function Player() {
     const [currentSongURL, setcurrentSongURL] = useState<string>(defaultQueue[0].url);
     const [albumCover, setAlbumCover] = useState<string>(defaultAlbumArt);
     const [queue, setQueue] = useState<any[]>(defaultQueue);
+    const [songState, setSongState] = useState<string>('pause');
     const [albumArtSize, setAlbumArtSize] = useState<number>(60)
 
-    let currentSong = new Audio(currentSongURL)
+    let currentSong = useRef(new Audio(currentSongURL))
 
     function getAlbumCover (songDate: string | null): void {
         try {
@@ -72,16 +75,6 @@ export function Player() {
         }
     }
 
-    function playSong(audioTune: HTMLAudioElement) {
-                updateCurrentSong()
-                audioTune.play();
-            }
-
-    function pauseSong(audioTune: HTMLAudioElement) {
-                updateCurrentSong()
-                audioTune.pause();
-            }
-
     function updateCurrentSong (): void {
 
         if (queue) {
@@ -98,6 +91,14 @@ export function Player() {
     useEffect(() => {
         getQueueItems()
     }, [])
+
+    useEffect(() => {
+        if (songState === 'play' && currentSong.current.paused) {
+            currentSong.current.play();
+        } else if (songState === 'pause') {
+            currentSong.current.pause();
+        }
+    }, [songState])
 
     useEffect(() => {
         updateAlbumCover()
@@ -119,7 +120,7 @@ export function Player() {
                     </div>
                     <div className="z-20 absolute -top-4 left-6 grid gap-2 grid-cols-10">
                         { 
-                            [...Array(40)].map((e, i) => <div className={`w-0.5 h-0.5 bg-magenta rounded-full`}></div>)
+                            [...Array(40)].map((e, i) => <div className={`w-0.5 h-0.5 bg-magenta rounded-full`} key={i}></div>)
                         }
                     </div>
                      <div className="z-20 absolute -top-10 -right-10">
@@ -131,21 +132,31 @@ export function Player() {
                     <div className="z-20 absolute -bottom-16 -left-16">
                         <div className={`w-24 h-24 bg-medium-light-brown rounded-full`}></div>
                     </div>
-                </div>
-                <div className="col-start-5 col-span-9">
-                    <div className="pt-10">
-                        <div className="text-3xl">
-                        {currentSongName}
-                        </div>
-                        <div className="text-lg text-magenta">
-                        {currentSongDate}
+                    <div className="col-start-5 col-span-9 absolute -right-36">
+                        <div className="pt-10">
+                            <div className="text-3xl">
+                            {currentSongName}
+                            </div>
+                            <div className="text-lg text-magenta">
+                            {currentSongDate}
+                            </div>
+                            <div className="h-14"></div>
+                            <div>
+                            { songState === 'pause' &&
+                                <input type="image" className="h-14" onClick={() => setSongState('play')} src={playButton}></input>
+                            }   
+                            { songState === 'play' &&
+                                <input type="image" className="h-14" onClick={() => setSongState('pause')} src={pauseButton}></input>
+                            }   
+                            </div>
+
                         </div>
                     </div>
-                    <button className="" onClick={() => playSong(currentSong)}>Play</button>
-                    <button className="" onClick={() => pauseSong(currentSong)}>Pause</button>
+                    {/* <button className="" onClick={() => playSong(currentSong)}>Play</button>
+                    <button className="" onClick={() => pauseSong(currentSong)}>Pause</button> */}
                 </div>
             </div>
-        {/* <Queue queue={queue}/> */}
+        <Queue queue={queue}/>
         </div>
     );
    }
